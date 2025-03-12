@@ -28,6 +28,18 @@ export class GifService {
       this.trendingGifs.set(gifs);
       this.trendingGifsLoading.set(false);
     });
+  }
 
+  searchGifs(query: string) {
+    this.http.get<GiphyResponse>(`${environment.giphyUrl}/gifs/search`, {
+      params: {
+        api_key: environment.giphyApiKey,
+        q: query,
+        limit: 20,
+      },
+    }).subscribe((response) => {
+      const searchedGifs = GifMapper.mapGiphyitemsToGifArray(response.data);
+      console.log({searchedGifs});
+    });
   }
 }
