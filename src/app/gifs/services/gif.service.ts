@@ -19,6 +19,9 @@ export class GifService {
         api_key: environment.giphyApiKey,
         limit: 20,
       },
+    }).subscribe((response) => {
+      console.log(response);
     });
+
   }
 }
