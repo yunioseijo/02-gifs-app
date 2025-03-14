@@ -4,7 +4,7 @@ import { environment } from '@env/environment';
 import type { GiphyResponse } from '../interfaces/giphy.interface';
 import { Gif } from '../interfaces/gif.interface';
 import { GifMapper } from '../mapper/gif.mapper';
-import { map } from 'rxjs';
+import { map, tap } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
@@ -41,9 +41,13 @@ export class GifService {
         limit: 20,
       },
     }).pipe(
-      map(({data}) => GifMapper.mapGiphyitemsToGifArray(data))
-
-      // TODO Historial de búsqueda
+      map(({data}) => GifMapper.mapGiphyitemsToGifArray(data)),
+      tap( items => {
+        this.searchHistory.update( history => ({
+          ...history,
+          [query]: items,
+        }));
+      })
   );
   // ).subscribe((response) => {
   //     const searchedGifs = GifMapper.mapGiphyitemsToGifArray(response.data);
