@@ -16,7 +16,7 @@
   </a>
   }
   @for (item of searchHistoryKeys(); track $index) {
-    <a href="#" [routerLink]="item" routerLinkActive="bg-blue-800" [routerLinkActiveOptions]="{exact: true}"
+    <a href="#" [routerLink]="['/dashboard/history', item]" routerLinkActive="bg-blue-800" [routerLinkActiveOptions]="{exact: true}"
     class="w-full px-2 inline-flex space-x-2 items-center border-b border-slate-700 py-3  hover:bg-white/5 transition ease-linear duration-150">
     <div>
     <!-- <i class="{{menu.icon}}"></i> -->
