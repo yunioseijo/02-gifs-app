@@ -6,9 +6,10 @@ import { Gif } from '../interfaces/gif.interface';
 import { GifMapper } from '../mapper/gif.mapper';
 import { map, Observable, tap } from 'rxjs';
 
+const GIF_KEY = 'gifs';
 const loadFromLocalStorage = () => {
-  const gifsHistory = localStorage.getItem('gifs');
-  return gifsHistory ? JSON.parse(gifsHistory) : [];
+  const gifsFromLocalStorage = localStorage.getItem(GIF_KEY) ?? '{}';
+  return JSON.parse(gifsFromLocalStorage);
 };
 
 @Injectable({
@@ -25,8 +26,8 @@ export class GifService {
     this.loadTrendingGifs();
   }
 
-  saveToLocalStorage = effect(() => {
-    localStorage.setItem('gifs', JSON.stringify(this.searchHistory()));
+  saveGifsToLocalStorage = effect(() => {
+    localStorage.setItem(GIF_KEY, JSON.stringify(this.searchHistory()));
   });
 
   loadTrendingGifs() {
