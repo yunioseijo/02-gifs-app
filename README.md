@@ -1,1 +1,1 @@
-# 02-gifs-app-course-devtalles
+# 02-gifs-app
